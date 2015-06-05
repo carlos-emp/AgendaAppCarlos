@@ -9,16 +9,62 @@
         <link rel="stylesheet" href="./fonts/style.css">
     </head>
     <body>
-        <div class="encabezado text-center col-xs-12"><h4>Agenda</h4></div>
+        <div class="row encabezado">
+
+            <div class=" text-center col-xs-8 col-xs-offset-2">
+                <h4>Agenda</h4>
+            </div>
+           
+        </div>
+
+
         <div class="container">
 
-            <div class="contenido" id="resultado">
+
+          
+
+            <div class="" id="resultado">
 
             </div>
-
-            <div class="fila">
-                <a href="nuevo.html"><span class="btn btn-danger btn-lg redondo derecha colorBlanco">+</span></a>
+             <div class="margen"></div>
+              <div class="menu" id="menu">
+               
+              
+                <div class="row">
+                    
+                    <div class="col-xs-8 col-xs-offset-4">
+                       
+                       <div class="row boton">
+                           
+                           <div class="col-xs-2">
+                                <div class="circulo fondoBlanco"><span class="icon-spinner9 colorNegro"></span></div>
+                               
+                           </div>
+                           <div class="col-xs-10 fila">
+                               <b>Actualizar Agenda</b>
+                           </div>
+                           
+                       </div>
+                        <div class="row">
+                           <a href="nuevo.html">
+                           <div class="col-xs-2">
+                                <div class="circulo fondoBlanco "><span class="icon-user-plus colorNegro"></span></div>
+                               
+                           </div>
+                           <div class="col-xs-10 fila">
+                               <b>Agregar Contacto</b>
+                           </div>
+                            </a>
+                           
+                       </div>
+                      
+                    </div>
+                </div>
             </div>
+             <div class="col-xs-2 col-xs-offset-9 fixed">
+                <div class="circulo-big fondoRojo colorBlanco transparente fixed" id="clic">+</div>
+            </div>
+
         </div>
 
 
@@ -28,10 +74,34 @@
 
 
             $(document).ready(function(){
+
+                $("#menu").animate({
+                    height: 'hide'
+                });
+
+            });
+            $( "#clic" ).click(function() {
+                $( "#menu" ).animate({
+
+                    height: "toggle",
+                    
+            
+                });
+            });
+
+
+
+            $(document).ready(get_data)
+            $(".boton").click(get_data);
+
+
+
+            function get_data(){
                 var clase="";
                 var j=0;
                 var contactos;
                 var contacto;
+                $("#resultado").html("");
 
 
                 $.getJSON("http://www.empowerlabs.com/intellibanks/data/Sandbox/CarlosVazquez/Agenda.php", function(result){
@@ -66,19 +136,14 @@
                                 clase="fondoNaranja"
                                 j=0;
                         } 
-                        
-                        
-                       
-                        
-                        
-                        
+
 
                         tarjeta +="<div class='accordion' id='"+field.Topico+"'>";
                         tarjeta +="<div class='accordion-group'>";
                         tarjeta +="<a class='accordion-toggle' data-toggle='collapse' data-parent='"+field.Topico+"' href='#"+i+"'>";
                         tarjeta += "<div class='row tarjeta'>";
                         tarjeta += "<div class='col-xs-2'>";
-                        tarjeta += "<div  class='fondoRojo circle "+clase+"'>"+field.Nombre.charAt(0)+"</div>";
+                        tarjeta += "<div  class='fondoRojo circulo "+clase+"'>"+field.Nombre.charAt(0)+"</div>";
                         tarjeta += "</div>";
                         tarjeta += "<div class='col-xs-10 fila'>";
                         tarjeta += "<b>"+field.Nombre+"</b>";
@@ -103,13 +168,14 @@
                         tarjeta += "</div>";
                         tarjeta += "</div>";
                         tarjeta += "</div>";
-                        
-                        
+
+
 
                         $("#resultado").append(tarjeta);
                     });
                 });
-            });
+            }
+
 
         </script>
     </body>
